@@ -3,8 +3,8 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
-using WebApi.Models;
 using WebApi.Infrastructure;
+using WebApi.Models;
 
 namespace WebApi.Controllers
 {
