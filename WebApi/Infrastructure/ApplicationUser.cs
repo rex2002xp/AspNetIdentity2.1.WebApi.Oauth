@@ -6,6 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace WebApi.Infrastructure
@@ -28,5 +30,13 @@ namespace WebApi.Infrastructure
 
         [Required]
         public DateTime JoinDate { get; set; }
+
+        
+        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager, string authenticationType)
+        {
+            var userIdentity = await manager.CreateIdentityAsync(this, authenticationType);
+            // Aca podemos agregar el codigo para personalizar el claims del usuario.
+            return userIdentity;
+        }
     }
 }
