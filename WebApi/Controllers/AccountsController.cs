@@ -11,12 +11,14 @@ namespace WebApi.Controllers
     [RoutePrefix("api/accounts")]
     public class AccountsController : BaseApiController
     {
+        [Authorize]
         [Route("users")]
         public IHttpActionResult GetUsers()
         {
             return Ok(this.AppUserManager.Users.ToList().Select(u => this.TheModelFactory.Create(u)));
         }
 
+        [Authorize]
         [Route("user/{id:guid}", Name = "GetUserById")]
         public async Task<IHttpActionResult> GetUser(string Id)
         {
@@ -31,6 +33,7 @@ namespace WebApi.Controllers
 
         }
 
+        [Authorize]
         [Route("user/{username}")]
         public async Task<IHttpActionResult> GetUserByName(string username)
         {
@@ -45,6 +48,7 @@ namespace WebApi.Controllers
 
         }
 
+        [AllowAnonymous]
         [Route("create")]
         public async Task<IHttpActionResult> CreateUser(CreateUserBindingModel createUserModel)
         {
@@ -94,6 +98,7 @@ namespace WebApi.Controllers
 
         }
 
+        [AllowAnonymous]
         [HttpGet]
         [Route("ConfirmEmail", Name = "ConfirmEmailRoute")]
         public async Task<IHttpActionResult> ConfirmEmail(string userId = "", string code = "")
@@ -116,6 +121,7 @@ namespace WebApi.Controllers
             }
         }
 
+        [Authorize]
         [Route("ChangePassword")]
         public async Task<IHttpActionResult> ChangePassword(ChangePasswordBindingModel model)
         {
@@ -134,29 +140,25 @@ namespace WebApi.Controllers
             return Ok();
         }
 
+        [Authorize]
         [Route("user/{id:guid}")]
         public async Task<IHttpActionResult> DeleteUser(string id)
         {
 
             // Seria una excelente idea, que esta opcion solo este disponible para los usuarios Super 
             // Administradores o Administradores , esto lo implementaremos mas adelante.
-
             var appUser = await this.AppUserManager.FindByIdAsync(id);
-
             if (appUser != null)
             {
                 IdentityResult result = await this.AppUserManager.DeleteAsync(appUser);
-
                 if (!result.Succeeded)
                 {
                     return GetErrorResult(result);
                 }
-
                 return Ok();
             }
 
             return NotFound();
-
         }
     }
 }
