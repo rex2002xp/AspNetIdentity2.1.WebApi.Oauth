@@ -36,6 +36,7 @@ namespace WebApi
             // Se configura el contexto de la base de datos y la administracion del usuario, para que sea usada una unica instancia por peticion.
             app.CreatePerOwinContext(ApplicationDbContext.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
+            app.CreatePerOwinContext<ApplicationRoleManager>(ApplicationRoleManager.Create);
 
             string issueServer = ConfigurationManager.AppSettings["as:IssueServer"];
 
