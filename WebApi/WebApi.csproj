@@ -149,6 +149,7 @@
     <Compile Include="Controllers\BaseApiController.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Infrastructure\ApplicationRoleManager.cs" />
     <Compile Include="Infrastructure\ApplicationUserManager.cs" />
     <Compile Include="Migrations\201504031844235_InitialCreate.cs" />
     <Compile Include="Migrations\201504031844235_InitialCreate.Designer.cs">
