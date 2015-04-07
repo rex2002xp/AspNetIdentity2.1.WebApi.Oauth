@@ -1,10 +1,14 @@
 ﻿using Microsoft.Owin;
+using Microsoft.Owin.Security.OAuth;
+using Newtonsoft.Json.Serialization;
 using Owin;
+using System;
+using System.Configuration;
+using System.Linq;
+using System.Net.Http.Formatting;
 using System.Web.Http;
 using WebApi.Infrastructure;
-using System.Net.Http.Formatting;
-using Newtonsoft.Json.Serialization;
-using System.Linq;
+using WebApi.Providers;
 
 [assembly: OwinStartup(typeof(WebApi.Startup))]
 
@@ -29,7 +33,21 @@ namespace WebApi
             app.CreatePerOwinContext(ApplicationDbContext.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
 
+            string audienceId = ConfigurationManager.AppSettings["as:IssueServer"];
+
             // La configuracion del Plugin para OAuth bearer se debe realizar aca.
+            OAuthAuthorizationServerOptions OAuthServerOptions = new OAuthAuthorizationServerOptions()
+            {
+                //Para el Ambiente de Desarrollo unicamente (en Produccion debe ser AllowInsecureHttp = false)
+                AllowInsecureHttp = true,
+                TokenEndpointPath = new PathString("/oauth/token"),
+                AccessTokenExpireTimeSpan = TimeSpan.FromDays(1),
+                Provider = new CustomOAuthProvider(),
+                AccessTokenFormat = new CustomJwtFormat(audienceId)
+            };
+
+            // OAuth 2.0 Bearer Access Token Generation
+            app.UseOAuthAuthorizationServer(OAuthServerOptions);
 
         }
 
