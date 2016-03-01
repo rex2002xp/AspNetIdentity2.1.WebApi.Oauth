@@ -38,9 +38,9 @@ namespace WebApi.Migrations
 
             if (roleManager.Roles.Count() == 0)
             {
-                roleManager.Create(new IdentityRole { Name = "SuperAdmin" });
-                roleManager.Create(new IdentityRole { Name = "Admin" });
-                roleManager.Create(new IdentityRole { Name = "User" });
+                roleManager.Create(new ApplicationRole { Name = "SuperAdmin", Description = "Usuarios con el nivel mas alto de acceso." });
+                roleManager.Create(new ApplicationRole { Name = "Admin", Description = "Usuarios administradores." });
+                roleManager.Create(new ApplicationRole { Name = "User", Description = "Usuario con acceso minimo" });
             }
 
             var adminUser = manager.FindByName("rex2002xp");
