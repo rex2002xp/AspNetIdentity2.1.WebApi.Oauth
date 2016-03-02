@@ -152,11 +152,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Controllers\RolesController.cs" />
+    <Compile Include="Infrastructure\ApplicationRole.cs" />
     <Compile Include="Infrastructure\ApplicationRoleManager.cs" />
     <Compile Include="Infrastructure\ApplicationUserManager.cs" />
-    <Compile Include="Migrations\201504031844235_InitialCreate.cs" />
-    <Compile Include="Migrations\201504031844235_InitialCreate.Designer.cs">
-      <DependentUpon>201504031844235_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201603010512306_Inicializacion.cs" />
+    <Compile Include="Migrations\201603010512306_Inicializacion.Designer.cs">
+      <DependentUpon>201603010512306_Inicializacion.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ChangePasswordBindingModel.cs" />
@@ -175,12 +176,12 @@
     <Compile Include="Validators\MyCustomUserValidator.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201504031844235_InitialCreate.resx">
-      <DependentUpon>201504031844235_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
+    <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <EmbeddedResource Include="Migrations\201603010512306_Inicializacion.resx">
+      <DependentUpon>201603010512306_Inicializacion.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -213,7 +214,6 @@
     </PropertyGroup>
     <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
   </Target>
-
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
